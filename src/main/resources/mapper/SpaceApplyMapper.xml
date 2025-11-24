@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itzhihao.blog.mapper.SpaceApplyMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO space_apply (user_id, space_id, requested_size, status, reason, create_time)
+        VALUES (#{userId}, #{spaceId}, #{requestedSize}, #{status}, #{reason}, #{createTime})
+    </insert>
+
+    <select id="findById" resultType="com.itzhihao.blog.entity.SpaceApply">
+        SELECT * FROM space_apply WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" resultType="com.itzhihao.blog.entity.SpaceApply">
+        SELECT * FROM space_apply WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="findByStatus" resultType="com.itzhihao.blog.entity.SpaceApply">
+        SELECT * FROM space_apply WHERE status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="findAll" resultType="com.itzhihao.blog.entity.SpaceApply">
+        SELECT * FROM space_apply ORDER BY create_time DESC
+    </select>
+
+    <update id="update">
+        UPDATE space_apply 
+        SET user_id = #{userId}, 
+            space_id = #{spaceId}, 
+            requested_size = #{requestedSize}, 
+            status = #{status}, 
+            reason = #{reason}, 
+            review_comment = #{reviewComment}, 
+            review_time = #{reviewTime}, 
+            reviewer_id = #{reviewerId}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE space_apply 
+        SET status = #{status}, 
+            review_comment = #{reviewComment}, 
+            review_time = NOW(), 
+            reviewer_id = #{reviewerId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM space_apply WHERE id = #{id}
+    </delete>
+
+</mapper>

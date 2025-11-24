@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itzhihao.blog.mapper.SpaceMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO space (user_id, total_size, used_size, status, total_downloads, create_time, update_time)
+        VALUES (#{userId}, #{totalSize}, #{usedSize}, #{status}, #{totalDownloads}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="findById" resultType="com.itzhihao.blog.entity.Space">
+        SELECT * FROM space WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" resultType="com.itzhihao.blog.entity.Space">
+        SELECT * FROM space WHERE user_id = #{userId}
+    </select>
+
+    <update id="update">
+        UPDATE space 
+        SET user_id = #{userId}, 
+            total_size = #{totalSize}, 
+            used_size = #{usedSize}, 
+            status = #{status}, 
+            total_downloads = #{totalDownloads}, 
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE space SET status = #{status}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateUsedSize">
+        UPDATE space SET used_size = #{usedSize}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="incrementDownloadCount">
+        UPDATE space SET total_downloads = total_downloads + 1, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM space WHERE id = #{id}
+    </delete>
+
+</mapper>

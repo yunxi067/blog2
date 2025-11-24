@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itzhihao.blog.mapper.FileMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO file_info (user_id, space_id, file_name, original_name, file_path, content_type, 
+                              file_size, category, sub_category, status, download_count, create_time, update_time)
+        VALUES (#{userId}, #{spaceId}, #{fileName}, #{originalName}, #{filePath}, #{contentType}, 
+                #{fileSize}, #{category}, #{subCategory}, #{status}, #{downloadCount}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="findById" resultType="com.itzhihao.blog.entity.FileInfo">
+        SELECT * FROM file_info WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" resultType="com.itzhihao.blog.entity.FileInfo">
+        SELECT * FROM file_info WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="findBySpaceId" resultType="com.itzhihao.blog.entity.FileInfo">
+        SELECT * FROM file_info WHERE space_id = #{spaceId} ORDER BY create_time DESC
+    </select>
+
+    <select id="findByCategory" resultType="com.itzhihao.blog.entity.FileInfo">
+        SELECT * FROM file_info 
+        WHERE user_id = #{userId} AND category = #{category} 
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="findByStatus" resultType="com.itzhihao.blog.entity.FileInfo">
+        SELECT * FROM file_info WHERE status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <update id="update">
+        UPDATE file_info 
+        SET user_id = #{userId}, 
+            space_id = #{spaceId}, 
+            file_name = #{fileName}, 
+            original_name = #{originalName}, 
+            file_path = #{filePath}, 
+            content_type = #{contentType}, 
+            file_size = #{fileSize}, 
+            category = #{category}, 
+            sub_category = #{subCategory}, 
+            status = #{status}, 
+            download_count = #{downloadCount}, 
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE file_info SET status = #{status}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="incrementDownloadCount">
+        UPDATE file_info SET download_count = download_count + 1, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM file_info WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM file_info WHERE user_id = #{userId}
+    </delete>
+
+</mapper>
