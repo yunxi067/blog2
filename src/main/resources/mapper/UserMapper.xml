@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itzhihao.blog.mapper.UserMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username, password, email, nickname, role, status, create_time, update_time)
+        VALUES (#{username}, #{password}, #{email}, #{nickname}, #{role}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="findById" resultType="com.itzhihao.blog.entity.User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <select id="findByUsername" resultType="com.itzhihao.blog.entity.User">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+
+    <select id="findByEmail" resultType="com.itzhihao.blog.entity.User">
+        SELECT * FROM user WHERE email = #{email}
+    </select>
+
+    <update id="update">
+        UPDATE user 
+        SET username = #{username}, 
+            password = #{password}, 
+            email = #{email}, 
+            nickname = #{nickname}, 
+            role = #{role}, 
+            status = #{status}, 
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE user SET status = #{status}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+
+</mapper>

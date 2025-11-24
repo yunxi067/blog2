@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启驼峰命名转换 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 设置超时时间 -->
+        <setting name="defaultStatementTimeout" value="30"/>
+        <!-- 设置获取数据的策略，FIFO -->
+        <setting name="defaultFetchSize" value="100"/>
+        <!-- 设置返回null值的列 -->
+        <setting name="callSettersOnNulls" value="true"/>
+    </settings>
+</configuration>

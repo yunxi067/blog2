@@ -36,3 +36,13 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Application specific ###
+uploads/
+*.log
+*.tmp
+.env
+.env.local
+.env.development
+.env.test
+.env.production
